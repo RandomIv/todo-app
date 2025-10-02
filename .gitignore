@@ -71,6 +71,7 @@ web/dist/ # Potential TypeScript build output
 /api/build/
 /api/.build/
 /api/*.tsbuildinfo
+/api/generated
 
 # ===================================================
 # 6. TESTING / COVERAGE
