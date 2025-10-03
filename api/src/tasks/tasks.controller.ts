@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Body,
+  Query,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task, Prisma } from 'generated/prisma';
@@ -15,8 +16,19 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Get()
-  findMany(): Promise<Task[]> {
-    return this.tasksService.findMany();
+  findMany(
+    @Query('done') done?: string,
+    @Query('priority') priority?: string,
+    @Query('search') search?: string,
+    @Query('sort') sort?: 'asc' | 'desc',
+  ): Promise<Task[]> {
+    const params = {
+      done: done !== undefined ? done === 'true' : undefined,
+      priority: priority ? Number(priority) : undefined,
+      search,
+      sortByPriority: sort,
+    };
+    return this.tasksService.findMany(params);
   }
 
   @Get(':id')

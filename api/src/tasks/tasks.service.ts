@@ -6,8 +6,22 @@ import { Task, Prisma } from 'generated/prisma';
 export class TasksService {
   constructor(private prisma: PrismaService) {}
 
-  async findMany(): Promise<Task[]> {
-    return this.prisma.task.findMany();
+  async findMany(params?: {
+    done?: boolean;
+    priority?: number;
+    search?: string;
+    sortByPriority?: 'asc' | 'desc';
+  }): Promise<Task[]> {
+    const { done, priority, search, sortByPriority } = params || {};
+
+    const where: Prisma.TaskWhereInput = {};
+    if (done !== undefined) where.done = done;
+    if (priority !== undefined) where.priority = priority;
+    if (search) where.title = { contains: search, mode: 'insensitive' };
+
+    const orderBy = sortByPriority ? { priority: sortByPriority } : undefined;
+
+    return this.prisma.task.findMany({ where, orderBy });
   }
 
   async findOne(id: string): Promise<Task | null> {
