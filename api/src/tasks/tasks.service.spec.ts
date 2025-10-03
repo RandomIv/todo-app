@@ -76,7 +76,7 @@ describe('TasksService', () => {
   });
 
   it('should return all tasks', async () => {
-    const tasks = await service.findMany();
+    const tasks = await service.findMany({});
     expect(tasks).toHaveLength(mockTasks.length);
   });
 

@@ -10,24 +10,14 @@ import {
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task, Prisma } from 'generated/prisma';
+import { FindTasksDto } from './dtos/find-tasks.dto';
 
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Get()
-  findMany(
-    @Query('done') done?: string,
-    @Query('priority') priority?: string,
-    @Query('search') search?: string,
-    @Query('sort') sort?: 'asc' | 'desc',
-  ): Promise<Task[]> {
-    const params = {
-      done: done !== undefined ? done === 'true' : undefined,
-      priority: priority ? Number(priority) : undefined,
-      search,
-      sortByPriority: sort,
-    };
+  findMany(@Query() params: FindTasksDto): Promise<Task[]> {
     return this.tasksService.findMany(params);
   }
 
