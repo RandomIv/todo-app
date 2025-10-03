@@ -1,27 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma';
 import { Task, Prisma } from 'generated/prisma';
+import { FindTasksDto } from './dtos/find-tasks.dto';
 
 @Injectable()
 export class TasksService {
   constructor(private prisma: PrismaService) {}
 
-  async findMany(params?: {
-    done?: boolean;
-    priority?: number;
-    search?: string;
-    sortByPriority?: 'asc' | 'desc';
-  }): Promise<Task[]> {
+  async findMany(params: FindTasksDto): Promise<Task[]> {
     const { done, priority, search, sortByPriority } = params || {};
 
-    const where: Prisma.TaskWhereInput = {};
-    if (done !== undefined) where.done = done;
-    if (priority !== undefined) where.priority = priority;
-    if (search) where.title = { contains: search, mode: 'insensitive' };
-
-    const orderBy = sortByPriority ? { priority: sortByPriority } : undefined;
-
-    return this.prisma.task.findMany({ where, orderBy });
+    return this.prisma.task.findMany({
+      where: {
+        ...(done !== undefined && { done }),
+        ...(priority !== undefined && { priority }),
+        ...(search && { title: { contains: search, mode: 'insensitive' } }),
+      },
+      ...(sortByPriority && { orderBy: { priority: sortByPriority } }),
+    });
   }
 
   async findOne(id: string): Promise<Task | null> {
