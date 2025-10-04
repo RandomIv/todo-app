@@ -1,6 +1,6 @@
 import type { Task } from '@/types/task';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL?.replace(/^https:\/\/[^/]+\/(.*)$/, 'https://$1');
 
 
 export async function getTasks(): Promise<Task[]> {
