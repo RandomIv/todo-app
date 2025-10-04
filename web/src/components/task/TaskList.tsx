@@ -5,12 +5,17 @@ import { TaskStats } from './TaskStats';
 import { TaskFilter } from './TaskFilter';
 import { useTasks } from "@/hooks/useTasks";
 import { useTaskMutations } from '@/hooks/useTaskMutations';
+import type { Task } from '@/types/task';
 
-export function TaskList() {
+interface TaskListProps {
+    onEdit: (task: Task) => void;
+}
+
+export function TaskList({ onEdit }: TaskListProps) {
     const [filter, setFilter] = useState('all');
     const { data: tasks, isLoading, error } = useTasks();
     const { updateTask, deleteTask } = useTaskMutations();
-    console.log(tasks);
+
     const taskList = tasks || [];
 
     const handleToggle = (id: string) => {
@@ -56,6 +61,7 @@ export function TaskList() {
                             task={task}
                             onToggle={handleToggle}
                             onDelete={handleDelete}
+                            onEdit={onEdit}
                         />
                     ))
                 )}
