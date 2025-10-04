@@ -1,6 +1,6 @@
 import type { Task } from '@/types/task';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const BASE_URL = 'https://todo-app-backend-production-2c65.up.railway.app/';
 
 
 export async function getTasks(): Promise<Task[]> {
