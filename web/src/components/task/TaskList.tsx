@@ -3,20 +3,25 @@ import { useState } from 'react';
 import { TaskItem } from './TaskItem';
 import { TaskStats } from './TaskStats';
 import { TaskFilter } from './TaskFilter';
-import {useTasks} from "@/hooks/useTasks";
+import { useTasks } from "@/hooks/useTasks";
+import { useTaskMutations } from '@/hooks/useTaskMutations';
 
 export function TaskList() {
     const [filter, setFilter] = useState('all');
     const { data: tasks, isLoading, error } = useTasks();
+    const { updateTask, deleteTask } = useTaskMutations();
+    console.log(tasks);
     const taskList = tasks || [];
 
     const handleToggle = (id: string) => {
-        console.log('Toggle task', id);
+        const task = taskList.find(t => t.id === id);
+        if (task) {
+            updateTask({ id, data: { done: !task.done } });
+        }
     };
 
     const handleDelete = (id: string) => {
-        console.log('Delete task', id);
-
+        deleteTask(id);
     };
 
     const filteredTasks = taskList.filter(task => {
@@ -25,12 +30,14 @@ export function TaskList() {
         return true;
     });
 
-
     const stats = {
         total: taskList.length,
         active: taskList.filter(t => !t.done).length,
         completed: taskList.filter(t => t.done).length,
     };
+
+    if (isLoading) return <p className="text-center text-gray-500 py-6">Loading tasks...</p>;
+    if (error) return <p className="text-center text-red-500 py-6">Failed to load tasks.</p>;
 
     return (
         <div className="flex flex-col gap-6">
