@@ -23,7 +23,7 @@ export function EditTaskDialog({ task, isOpen, onClose }: EditTaskDialogProps) {
         if (task) {
             setTitle(task.title);
             setPriority(task.priority);
-            setDate(new Date(task.createdAt).toISOString().split('T')[0]); // Форматуємо дату для <input type="date">
+            setDate(new Date(task.createdAt).toISOString().split('T')[0]);
         }
     }, [task]);
 
@@ -54,35 +54,35 @@ export function EditTaskDialog({ task, isOpen, onClose }: EditTaskDialogProps) {
 
     return (
         <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-            <DialogContent className='sm:max-w-md w-full p-6 bg-white rounded-lg shadow-lg'>
+            <DialogContent className="dialog-content">
                 <DialogHeader>
-                    <DialogTitle>Edit Task</DialogTitle>
+                    <DialogTitle className="heading-section">Edit Task</DialogTitle>
                 </DialogHeader>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label>Title</label>
+                <form onSubmit={handleSubmit} className="section-gap">
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium">Title</label>
                         <Input value={title} onChange={(e) => setTitle(e.target.value)} />
                     </div>
-                    <div>
-                        <label>Priority</label>
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium">Priority</label>
                         <Select value={String(priority)} onValueChange={(val) => setPriority(Number(val))}>
                             <SelectTrigger>
                                 <SelectValue placeholder="Set priority" />
                             </SelectTrigger>
-                            <SelectContent className='bg-white'>
+                            <SelectContent className="bg-white dark:bg-gray-950">
                                 {Array.from({ length: 10 }, (_, i) => i + 1).map(p => (
                                     <SelectItem key={p} value={String(p)}>{p}</SelectItem>
                                 ))}
                             </SelectContent>
                         </Select>
                     </div>
-                    <div>
-                        <label>Date</label>
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium">Date</label>
                         <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
                     </div>
-                    <DialogFooter className="mt-4">
+                    <DialogFooter className="flex gap-2">
                         <Button type="button" variant="ghost" onClick={onClose}>Cancel</Button>
-                        <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white">Save Changes</Button>
+                        <Button type="submit" className="btn-primary">Save Changes</Button>
                     </DialogFooter>
                 </form>
             </DialogContent>

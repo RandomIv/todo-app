@@ -1,5 +1,7 @@
 'use client'
 import { useState, useMemo } from 'react';
+import { Card } from '@/components/ui/card';
+import { CheckCircle2, Loader2 } from 'lucide-react';
 import { TaskItem } from './TaskItem';
 import { TaskStats } from './TaskStats';
 import { TaskFilter } from './TaskFilter';
@@ -66,23 +68,47 @@ export function TaskList({ onEdit }: TaskListProps) {
         completed: taskList.filter(t => t.done).length,
     };
 
-    if (isLoading) return <p className="text-center text-gray-500 py-6">Loading tasks...</p>;
-    if (error) return <p className="text-center text-red-500 py-6">Failed to load tasks.</p>;
+    if (isLoading) {
+        return (
+            <div className="flex items-center justify-center py-12">
+                <Loader2 className="icon-xl animate-spin text-indigo-600" />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <Card className="p-8 text-center">
+                <p className="text-red-600">Failed to load tasks.</p>
+            </Card>
+        );
+    }
 
     return (
-        <div className="flex flex-col gap-6">
+        <div className="section-gap">
             <TaskStats {...stats} />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+            <div className="grid-controls">
                 <TaskFilter filter={filter} setFilter={setFilter} />
                 <TaskSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
                 <TaskSort sortOrder={sortOrder} setSortOrder={setSortOrder} />
             </div>
 
-            <div className="flex flex-col gap-3">
+            <div className="card-gap">
                 {processedTasks.length === 0 ? (
-                    <p className="text-center text-gray-500 py-6">
-                        No tasks found
-                    </p>
+                    <Card>
+                        <div className="empty-state-container">
+                            <div className="empty-state-icon">
+                                <CheckCircle2 className="icon-xl text-gray-400" />
+                            </div>
+                            <p className="empty-state-title">No tasks found</p>
+                            <p className="empty-state-description">
+                                {filter === 'completed'
+                                    ? 'Complete some tasks to see them here'
+                                    : 'Create a new task to get started'}
+                            </p>
+                        </div>
+                    </Card>
                 ) : (
                     processedTasks.map((task) => (
                         <TaskItem

@@ -1,6 +1,6 @@
 'use client'
 import { Card } from '@/components/ui/card';
-import { CheckCircle2, Circle } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 
 type TaskStatsProps = {
     total: number;
@@ -10,39 +10,39 @@ type TaskStatsProps = {
 
 export function TaskStats({ total, active, completed }: TaskStatsProps) {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="p-4 bg-gradient-to-br from-indigo-50 to-indigo-100 border-indigo-200">
+        <div className="grid-stats">
+            <Card className="stats-card-indigo">
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className="text-sm font-medium text-indigo-600">Total Tasks</p>
-                        <p className="text-3xl font-bold text-indigo-900">{total}</p>
+                        <p className="stats-label text-indigo-600 dark:text-indigo-400">Total Tasks</p>
+                        <p className="stats-value text-indigo-900 dark:text-indigo-100">{total}</p>
                     </div>
-                    <div className="p-3 bg-indigo-500 rounded-full">
-                        <CheckCircle2 className="w-6 h-6 text-white" />
+                    <div className="stats-icon-badge bg-indigo-500">
+                        <CheckCircle2 className="icon-lg text-white" />
                     </div>
                 </div>
             </Card>
 
-            <Card className="p-4 bg-gradient-to-br from-amber-50 to-amber-100 border-amber-200">
+            <Card className="stats-card-amber">
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className="text-sm font-medium text-amber-600">Active</p>
-                        <p className="text-3xl font-bold text-amber-900">{active}</p>
+                        <p className="stats-label text-amber-600 dark:text-amber-400">Active</p>
+                        <p className="stats-value text-amber-900 dark:text-amber-100">{active}</p>
                     </div>
-                    <div className="p-3 bg-amber-500 rounded-full">
-                        <Circle className="w-6 h-6 text-white" />
+                    <div className="stats-icon-badge bg-amber-500">
+                        <CheckCircle2 className="icon-lg text-white" />
                     </div>
                 </div>
             </Card>
 
-            <Card className="p-4 bg-gradient-to-br from-green-50 to-green-100 border-green-200">
+            <Card className="stats-card-green">
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className="text-sm font-medium text-green-600">Completed</p>
-                        <p className="text-3xl font-bold text-green-900">{completed}</p>
+                        <p className="stats-label text-green-600 dark:text-green-400">Completed</p>
+                        <p className="stats-value text-green-900 dark:text-green-100">{completed}</p>
                     </div>
-                    <div className="p-3 bg-green-500 rounded-full">
-                        <CheckCircle2 className="w-6 h-6 text-white" />
+                    <div className="stats-icon-badge bg-green-500">
+                        <CheckCircle2 className="icon-lg text-white" />
                     </div>
                 </div>
             </Card>

@@ -2,4 +2,272 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@layer base {
+    :root {
+        --spacing-card: 1.25rem;
+        --spacing-section: 1.5rem;
+        --spacing-page: 2rem;
 
+        --radius-sm: 0.375rem;
+        --radius-md: 0.5rem;
+        --radius-lg: 0.75rem;
+        --radius-xl: 1rem;
+
+        --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+        --shadow-soft: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+        --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        --shadow-strong: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    }
+}
+
+@layer components {
+    .page-container {
+        @apply min-h-screen bg-gradient-to-br from-gray-50 to-gray-100
+        dark:from-gray-950 dark:to-gray-900;
+    }
+
+    .content-wrapper {
+        @apply max-w-5xl mx-auto p-8;
+    }
+
+    .card-task {
+        @apply rounded-xl border shadow-sm transition-all duration-200
+        overflow-hidden hover:shadow-lg border-l-4;
+    }
+
+    .card-task-completed {
+        @apply rounded-xl border shadow-sm transition-all duration-200
+        overflow-hidden hover:shadow-lg border-l-4
+        border-l-green-500 bg-gray-50/50 dark:bg-gray-900/50;
+    }
+
+    .card-task-active {
+        @apply rounded-xl border shadow-sm transition-all duration-200
+        overflow-hidden hover:shadow-lg border-l-4
+        border-l-indigo-500 bg-white dark:bg-gray-950;
+    }
+
+    .stats-card-indigo {
+        @apply rounded-xl border shadow-sm transition-all duration-200
+        p-4 bg-gradient-to-br from-indigo-50 to-indigo-100
+        dark:from-indigo-950 dark:to-indigo-900
+        border-indigo-200 dark:border-indigo-800;
+    }
+
+    .stats-card-amber {
+        @apply rounded-xl border shadow-sm transition-all duration-200
+        p-4 bg-gradient-to-br from-amber-50 to-amber-100
+        dark:from-amber-950 dark:to-amber-900
+        border-amber-200 dark:border-amber-800;
+    }
+
+    .stats-card-green {
+        @apply rounded-xl border shadow-sm transition-all duration-200
+        p-4 bg-gradient-to-br from-green-50 to-green-100
+        dark:from-green-950 dark:to-green-900
+        border-green-200 dark:border-green-800;
+    }
+
+    .stats-icon-badge {
+        @apply p-3 rounded-full;
+    }
+
+    .priority-high {
+        @apply font-medium text-xs px-3 py-1 border
+        bg-red-500/10 text-red-600
+        border-red-200 dark:border-red-900;
+    }
+
+    .priority-medium {
+        @apply font-medium text-xs px-3 py-1 border
+        bg-amber-500/10 text-amber-600
+        border-amber-200 dark:border-amber-900;
+    }
+
+    .priority-low {
+        @apply font-medium text-xs px-3 py-1 border
+        bg-blue-500/10 text-blue-600
+        border-blue-200 dark:border-blue-900;
+    }
+
+    .btn-primary {
+        @apply flex items-center gap-2 px-6 py-3
+        bg-indigo-600 hover:bg-indigo-700
+        text-white rounded-lg shadow-lg hover:shadow-xl
+        transition-all duration-200 font-medium;
+    }
+
+    .btn-icon {
+        @apply transition-all duration-200 hover:scale-110;
+    }
+
+    .btn-icon-danger {
+        @apply transition-all duration-200 hover:scale-110
+        text-gray-400 hover:text-red-500;
+    }
+
+    .btn-icon-primary {
+        @apply transition-all duration-200 hover:scale-110
+        text-gray-400 hover:text-indigo-500;
+    }
+
+    .btn-icon-info {
+        @apply transition-all duration-200 hover:scale-110
+        text-gray-400 hover:text-blue-500;
+    }
+
+    .filter-container {
+        @apply flex items-center gap-2 p-1
+        bg-gray-100 dark:bg-gray-900
+        rounded-lg w-fit;
+    }
+
+    .filter-tab-active {
+        @apply px-6 py-2 rounded-md font-medium text-sm
+        transition-all duration-200
+        bg-white dark:bg-gray-800
+        text-indigo-600 dark:text-indigo-400
+        shadow-sm;
+    }
+
+    .filter-tab-inactive {
+        @apply px-6 py-2 rounded-md font-medium text-sm
+        transition-all duration-200
+        text-gray-600 dark:text-gray-400
+        hover:text-gray-900 dark:hover:text-gray-200;
+    }
+
+    .heading-page {
+        @apply text-4xl font-bold
+        bg-gradient-to-r from-indigo-600 to-purple-600
+        bg-clip-text text-transparent;
+    }
+
+    .heading-section {
+        @apply text-2xl font-bold text-gray-900 dark:text-gray-100;
+    }
+
+    .heading-card {
+        @apply text-lg font-medium text-gray-900 dark:text-gray-100;
+    }
+
+    .text-completed {
+        @apply line-through text-gray-400;
+    }
+
+    .text-muted {
+        @apply text-gray-600 dark:text-gray-400;
+    }
+
+    .text-meta {
+        @apply text-sm text-gray-500;
+    }
+
+    .stats-label {
+        @apply text-sm font-medium;
+    }
+
+    .stats-value {
+        @apply text-3xl font-bold;
+    }
+    .dialog-content{
+        @apply sm:max-w-md w-full p-6 bg-white rounded-lg shadow-lg;
+    }
+}
+
+@layer utilities {
+    .empty-state-container {
+        @apply flex flex-col items-center gap-3 p-12 text-center;
+    }
+
+    .empty-state-icon {
+        @apply p-4 bg-gray-100 dark:bg-gray-900 rounded-full;
+    }
+
+    .empty-state-title {
+        @apply text-lg font-medium text-gray-600 dark:text-gray-400;
+    }
+
+    .empty-state-description {
+        @apply text-sm text-gray-500;
+    }
+
+    .grid-stats {
+        @apply grid grid-cols-1 md:grid-cols-3 gap-4;
+    }
+
+    .grid-controls {
+        @apply grid grid-cols-1 md:grid-cols-3 gap-4;
+    }
+
+    .section-gap {
+        @apply flex flex-col gap-6;
+    }
+
+    .card-gap {
+        @apply flex flex-col gap-3;
+    }
+
+    .icon-sm {
+        @apply w-4 h-4;
+    }
+
+    .icon-md {
+        @apply w-5 h-5;
+    }
+
+    .icon-lg {
+        @apply w-6 h-6;
+    }
+
+    .icon-xl {
+        @apply w-8 h-8;
+    }
+}
+
+@layer utilities {
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    .animate-slide-in {
+        animation: slideIn 0.4s ease-out;
+    }
+}
+
+@layer utilities {
+    @media (max-width: 768px) {
+        .mobile-full {
+            @apply w-full;
+        }
+
+        .mobile-stack {
+            @apply flex-col;
+        }
+    }
+}

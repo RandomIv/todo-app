@@ -31,20 +31,19 @@ export function AddTaskDialog({ isOpen, onClose }: AddTaskDialogProps) {
 
     return (
         <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-            <DialogContent className="sm:max-w-md w-full p-6 bg-white rounded-lg shadow-lg">
+            <DialogContent className="dialog-content">
                 <DialogHeader>
-                    <DialogTitle className="text-xl font-semibold">
+                    <DialogTitle className="heading-section">
                         Create a New Task
                     </DialogTitle>
                 </DialogHeader>
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                <form onSubmit={handleSubmit} className="section-gap">
                     <Input
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="What needs to be done?"
-                        className="w-full"
                     />
-                    <DialogFooter className="flex justify-end gap-2 mt-2">
+                    <DialogFooter className="flex gap-2">
                         <Button
                             type="button"
                             variant="ghost"
@@ -55,7 +54,7 @@ export function AddTaskDialog({ isOpen, onClose }: AddTaskDialogProps) {
                         >
                             Cancel
                         </Button>
-                        <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white">
+                        <Button type="submit" className="btn-primary">
                             Add Task
                         </Button>
                     </DialogFooter>
