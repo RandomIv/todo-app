@@ -10,7 +10,7 @@ export async function getTasks(): Promise<Task[]> {
 }
 
 
-export async function addTask(task: { text: string; priority: number }): Promise<Task> {
+export async function addTask(task: { title: string; priority: number }): Promise<Task> {
     const res = await fetch(`${BASE_URL}/tasks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
